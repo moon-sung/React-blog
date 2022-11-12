@@ -1,7 +1,22 @@
 .App {
   text-align: center;
 }
+div{
+  box-sizing: border-box;
+}
+.black-nav{
+  display: flex;
+  background: black;
+  width: 100%;
+  color: white;
+  padding: 20px;
+}
 
+.list{
+  padding-left: 20px;
+  text-align: left;
+  border-bottom: 1px solid grey;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
