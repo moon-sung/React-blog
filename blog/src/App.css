@@ -4,6 +4,7 @@
 div{
   box-sizing: border-box;
 }
+
 .black-nav{
   display: flex;
   background: black;
@@ -17,6 +18,24 @@ div{
   text-align: left;
   border-bottom: 1px solid grey;
 }
+.change{
+  margin: 2px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  background-color: orange;
+  border: none;
+  display: flex;
+
+}
+
+.modal{
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #eee;
+  text-align: left;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
