@@ -1,20 +1,20 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 function App() {
   let post = "맛집투어";
   let [title, setTitle] = useState([
-    "남자 코트 추천",
-    "강남 고기 맛집",
+    "JavaScript 문법 공부",
+    "클린코드 읽기",
     "리액트 공부",
   ]);
   let [good, setGood] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
-  let [modalTitle, setModalTitle] = useState(0);{/*모달 창에서의 title의 인덱스를 위한 state */}
-  let [inputData,setInputData] = useState('');
+  let [modalTitle, setModalTitle] = useState(0); //모달 창에서의 title의 인덱스를 위한 state
+  let [inputData, setInputData] = useState("");
 
   return (
+    //글작성 버튼 - 제목 내용 입력 - 입력한 데이터 받아서 글추가
     <div className="App">
       <div className="black-nav">
         <h4 className={post} style={{ color: "yellow", fontSize: "16px" }}>
@@ -27,27 +27,18 @@ function App() {
           className="change"
           onClick={() => {
             let copy = [...title]; //state동작원리때문
-            copy[0] = "여자코트 추천";
-            setTitle(copy);
+            setTitle(copy.sort()); //정렬
           }}
         >
-          {" "}
-          수정버튼{" "}
+          게시글 정렬
         </button>
       </div>
 
       {title.map(function (a, i) {
-        const date = new Date();
-
-        const year = date.getFullYear();
-        const month = ('0' + (date.getMonth() + 1)).slice(-2);
-        const day = ('0' + date.getDate()).slice(-2);
-        const dateStr = year + '-' + month + '-' + day; //날짜
         return (
           <div className="list" key={i}>
-            
             <h4
-              onClick={() => {
+              onClick={() => { 
                 setModal(!modal);
                 setModalTitle(i);
               }}
@@ -55,7 +46,7 @@ function App() {
               {a}
               {/**누르면 modalTitle을 i로 바꿈 */}
             </h4>
-            
+
             <span
               onClick={(e) => {
                 let copyGood = [...good]; //array자료형이니 복사해서 사용
@@ -68,13 +59,19 @@ function App() {
               좋아요👍
             </span>
             {good[i]}
-            <p>today : {dateStr + ' ' +date.toLocaleTimeString('ko-kr')}</p>
+            <p>today : 2022-11-21</p>
+            {/**날짜를 다르게 저장하려면 애초에 저장하는시점에서 날짜를 변수로 넣어줘야 될듯*/}
 
             {/**삭제버튼 */}
-            <button onClick={()=>{ 
-              let copy = [...title];
-              copy.splice(i, 1); //i 인덱스에서 1개만큼삭제
-              setTitle(copy);}}>삭제</button>
+            <button
+              onClick={() => {
+                let copy = [...title];
+                copy.splice(i, 1); //i 인덱스에서 1개만큼삭제
+                setTitle(copy);
+              }}
+            >
+              삭제
+            </button>
           </div>
         );
       })}
@@ -84,17 +81,24 @@ function App() {
           setInputData(e.target.value);
           //console.log(inputData);
         }}
+        placeholder="제목 입력"
       ></input>
-      <button onClick={()=>{ 
-        let copy = [...title]; //array, state동작원리때문에 복사해서 사용
-        let goodCopy = [...good]; //좋아요 수 카운트를 위한 0 추가
-        copy.unshift(inputData); //unshift는 배열제일 앞에 값을 추가하는 내장함수
-        goodCopy.unshift(0);
-        setTitle(copy);
-        setGood(goodCopy);}}>글발행</button>
 
-      {/*보통넘길때 같은이름으로 작명*/}
-      {modal == true ? (
+      <button
+        onClick={() => {
+          let copy = [...title]; //array, state동작원리때문에 복사해서 사용
+          let goodCopy = [...good]; //좋아요 수 카운트를 위한 0 추가
+          copy.unshift(inputData); //unshift는 배열제일 앞에 값을 추가하는 내장함수
+          goodCopy.unshift(0);
+          setTitle(copy);
+          setGood(goodCopy);
+        }}
+      >
+        글추가
+      </button>
+
+      {/*보통넘길때 같은이름으로 작명 modal이 true이면 모달창을 띄우고 아니면 널값*/}
+      {modal === true ? (
         <Modal
           modalTitle={modalTitle}
           setTitle={setTitle}
